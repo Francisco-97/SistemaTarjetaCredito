@@ -3,7 +3,7 @@
         <div class="col-lg-8 offset-lg-2">
             <div class="card">
                 <div class="card-body">
-                    <h3 class="Textos">Tarjeta Credito</h3>
+                    <h3 class="Textos">TARJETA CREDITO</h3>
                 </div>
             </div>
         </div>
@@ -15,24 +15,24 @@
     <div class="col-lg-6">
         <div class="card">
             <div class="card-body">
-                <h3 class="Textos">Agregar Tarjeta</h3>
+                <h3 class="Textos">{{ accion | uppercase }} TARJETA</h3>
 
-                <form [formGroup]="form" (ngSubmit)="agregarTarjeta()">
+                <form [formGroup]="form" (ngSubmit)="guardarTarjeta()">
                     <div class="input-group input-group-lg mb-3">
-                        <span class="input-group-text" id="basic-addon1"><i class="far fa-user" [class.green-icon]="this.form.get('Titular')?.valid" [class.red-icon]="this.form.get('Titular')?.invalid && this.form.get('Titular')?.touched"></i></span>
-                        <input formControlName="Titular" type="text" class="form-control" placeholder="Titular" aria-label="Username" aria-describedby="basic-addon1">
+                        <span class="input-group-text" id="basic-addon1"><i class="far fa-user" [class.green-icon]="this.form.get('titular')?.valid" [class.red-icon]="this.form.get('titular')?.invalid && this.form.get('titular')?.touched"></i></span>
+                        <input formControlName="titular" type="text" class="form-control" placeholder="Titular" aria-label="Username" aria-describedby="basic-addon1">
                     </div>
     
                     <div class="input-group input-group-lg mb-3">
-                        <span class="input-group-text" id="basic-addon1"><i class="fas fa-credit-card" [class.green-icon]="this.form.get('Tarjeta')?.valid" [class.red-icon]="this.form.get('Tarjeta')?.invalid && this.form.get('Tarjeta')?.touched"></i></span>
-                        <input formControlName="Tarjeta" maxlength="16" type="text" class="form-control" placeholder="Numero de Tarjeta" aria-label="Username" aria-describedby="basic-addon1">
+                        <span class="input-group-text" id="basic-addon1"><i class="fas fa-credit-card" [class.green-icon]="this.form.get('numeroTarjeta')?.valid" [class.red-icon]="this.form.get('numeroTarjeta')?.invalid && this.form.get('numeroTarjeta')?.touched"></i></span>
+                        <input formControlName="numeroTarjeta" maxlength="16" type="text" class="form-control" placeholder="Numero de Tarjeta" aria-label="Username" aria-describedby="basic-addon1">
                     </div>
     
                     <div class="row">
                         <div class="col-lg-7">
                             <div class="input-group input-group-lg mb-3">
-                                <span class="input-group-text" id="basic-addon1"><i class="far fa-calendar-times" [class.green-icon]="this.form.get('Expira')?.valid" [class.red-icon]="this.form.get('Expira')?.invalid && this.form.get('Expira')?.touched"></i></span>
-                                <input formControlName="Expira" maxlength="5" type="text" class="form-control" placeholder="MM/YY" aria-label="Username" aria-describedby="basic-addon1">
+                                <span class="input-group-text" id="basic-addon1"><i class="far fa-calendar-times" [class.green-icon]="this.form.get('FechaExpiracion')?.valid" [class.red-icon]="this.form.get('FechaExpiracion')?.invalid && this.form.get('FechaExpiracion')?.touched"></i></span>
+                                <input formControlName="FechaExpiracion" maxlength="5" type="text" class="form-control" placeholder="MM/YY" aria-label="Username" aria-describedby="basic-addon1">
                             </div>
                         </div>
                         <div class="col-lg-5">
@@ -43,7 +43,7 @@
                         </div>
                     </div>
                     <div class="d-grid gap-2">
-                        <button type="submit" [disabled]="this.form.invalid" class="btn btn-success btn-lg">Accetar</button>
+                        <button type="submit" [disabled]="this.form.invalid" class="btn btn-success btn-lg">{{ nombreButton }}</button>
                     </div>
                 </form>
 
@@ -55,18 +55,18 @@
     <div class="col-lg-6">
         <div class="card">
             <div class="card-body">
-                <h3 class="Textos">Lista Tarjetas</h3>
+                <h3 class="Textos">LISTA TARJETAS</h3>
                 <table class="table">
                     <tbody>
-                        <tr *ngFor="let tarjeta of listasTarjetas; let i = index">
-                            <td> {{tarjeta.Titular}} </td>
-                            <td> {{tarjeta.Tarjeta}} </td>
-                            <td> {{tarjeta.Expira}} </td>
+                        <tr *ngFor="let tarjeta of listasTarjetas">
+                            <td> {{tarjeta.titular}} </td>
+                            <td> {{tarjeta.numeroTarjeta}} </td>
+                            <td> {{tarjeta.fechaExpiracion}} </td>
                             <td>
-                                <i class="far fa-edit text-info"></i>
+                                <i (click)="editarTarjeta(tarjeta)" class="far fa-edit text-info"></i>
                             </td>
                             <td>
-                                <i (click)="eliminarTarjeta(i)" class="far fa-trash-alt text-danger"></i>
+                                <i (click)="eliminarTarjeta(tarjeta.id)" class="far fa-trash-alt text-danger"></i>
                             </td>
                         </tr>
                     </tbody>
